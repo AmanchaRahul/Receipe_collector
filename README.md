@@ -1,1 +1,1 @@
-"# Receipe_Collection" 
+"# receipecollections" 
