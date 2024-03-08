@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>receipepage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                border-color: black;
+                border-radius:34px;
+                border-width:10px;
+              }
+
+            h1{
+                text-align:center;
+                margin:auto;
+            }
+
+            body{
+                margin:auto;
+                background-color:black;
+            }
+
+            h2{
+                color:black;
+                font-weight:bold;
+            }
+
+            label{
+                color: black;
+                font-weight: bold;
+            }
+                       
+        </style>
+    </head>
+    <body>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand">Receipe Collector</a>
+          <form class="d-flex">
+            
+            <a href="/logoutpage/" class="btn btn-outline-success" type="submit">Logout</a>
+          </form> 
+        </div>
+      </nav>
+
+        <div class="container mt-5">
+
+            <h1 style="color:white">### what are your favourite Receipes? ###</h1><br>
+           
+            
+            <form class="col-6 mx-auto card p-3 shadow-lg" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <h2>Add Receipe</h2>
+                <hr>
+                <div class="mb-3">
+                <label>Receipe name</label>
+                <input type="text" class="form-control" name="receipe_name" required>
+                </div>
+
+                <div class="mb-3">
+                  <label>Receipe description</label>
+                  <textarea class="form-control" name="receipe_description" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Receipe Image</label>
+                    <input type="file" class="form-control" name="receipe_image">
+                    </div>
+                
+                <button type="submit" class="btn btn-success">add receipe</button>
+            
+
+                </form>
+        <br>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Receipe Number</th>
+                    <th>Receipe_name</th>
+                    <th>Receipe_description</th>
+                    <th>Receipe_image</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for receipe in receipes%}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{receipe.receipe_name}}</td>
+                    <td>{{receipe.receipe_description}}</td>
+                    <td><img src="/media/{{receipe.receipe_image}}" style="width:200px" ></td>
+                    <td><a href="/deletereceipe/{{receipe.id}}/" class="btn btn-danger m-2">Delete</a>
+                        <a href="/updatereceipe/{{receipe.id}}/" class="btn btn-success">Update</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    <script></script>
+    </body>
+    </html>
